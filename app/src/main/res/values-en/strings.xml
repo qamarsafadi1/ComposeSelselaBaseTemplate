@@ -1,0 +1,67 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Compose Template</string>
+    <string name="cosmatic">Compose Template</string>
+    <string name="valid_required">This field is required</string>
+    <string name="valid_required2" tools:ignore="MissingTranslation">Please enter</string>
+    <string name="warning_email_pattern">Please enter your email</string>
+    <string name="warning_password_length">Password shall be more than 6 characters<br> </br></string>
+    <string name="warning_password_not_match">كلمة المرور غير متطابقة <br> </br></string>
+    <string name="warning_phone_pattern">Incorrect phone number</string>
+    <string name="warning_phone_length_pattern">Mobile must have only 9 numbers</string>
+    <string name="_msg_failed">Something went wrong</string>
+    <string name="login">Login</string>
+    <string name="mobile">Mobile number</string>
+    <string name="verify_code">Activation code</string>
+    <string name="confirm">Confirm</string>
+    <string name="resend">Resend code</string>
+    <string name="your_code_is">Your activation code is :</string>
+    <string name="categories">Sections</string>
+    <string name="high_price">Highest price</string>
+    <string name="low_prcie">Lowest price</string>
+    <string name="empty_lbl">" "</string>
+    <string name="email">Email address</string>
+    <string name="about_app">About App</string>
+    <string name="share_using">Share using</string>
+    <string name="full_name">Name</string>
+    <string name="app_disabled">App is disabled</string>
+    <string name="app_disabled_lbl">Sorry, you can\'t use our app currently</string>
+    <string name="app_update">Update app</string>
+    <string name="app_update_lbl">There is new update for the app</string>
+    <string name="update">Update</string>
+    <string name="no_products">No products found</string>
+    <string name="no_notifications">No notifications found</string>
+    <string name="login_lbl">Please enter username and mobile</string>
+    <string name="send">Send</string>
+    <string name="not_start_with_zero">Mobile number should not start with 0</string>
+    <string name="password">password</string>
+
+
+    <string name="view_order">Browse products</string>
+    <string name="default_notification_channel_id">CH2</string>
+    <string name="codeVerfiay">Activation Code</string>
+    <string name="pleaseSendCode">Please enter the verification code sent to your phone number</string>
+    <string name="pleaseSendCodeEmail">Please enter the verification code sent to your email</string>
+    <string name="addToCart">Add To Cart</string>
+    <string name="no_notifications_lbl">There are no notifications at the moment. Make sure the internet is turned on</string>
+    <string name="empty_fav">There are no products added to favourites</string>
+    <string name="fav_emtpy">Fav is empty</string>
+    <string name="register">New Account</string>
+    <string name="forget_password">Forgot password ?</string>
+    <string name="new_user">New user ?</string>
+    <string name="regiser_new_account">Register a new account</string>
+    <string name="reset_password">Restore password</string>
+    <string name="reset_password_lbl">Please enter your mobile to recover password on it</string>
+    <string name="reset_password_lbl_2">Please enter the recovery code sent to the mobile number used in the account and enter a new password</string>
+    <string name="reset_code">recovery code</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="current_user">Old user?</string>
+    <string name="weclome_back">Welcome back</string>
+    <string name="new_register">New registration</string>
+    <string name="register_lbl">Welcome to Cosmatics App,
+You can login  and enjoy a unique shopping experience</string>
+    <string name="please_fill_form">Please enter all details to continue</string>
+    <string name="all_products">All products</string>
+    <string name="about_app_lbl">Welcome to Cosmatics store app, the fun of shopping, the latest brands</string>
+
+</resources>

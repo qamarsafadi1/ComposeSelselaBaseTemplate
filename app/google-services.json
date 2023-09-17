@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "300402430905",
+    "project_id": "cosmetic-app-cedb3",
+    "storage_bucket": "cosmetic-app-cedb3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300402430905:android:3de5cd06cf9f439a00dc68",
+        "android_client_info": {
+          "package_name": "com.selsela.composebaseselsela"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300402430905-62vteah6vo3ku64vfag93fdjgh6acpdn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4J9bUAGQNnaj_TxWPgCW6tbCaILycOWg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300402430905-62vteah6vo3ku64vfag93fdjgh6acpdn.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "300402430905-hnegmvaohfplvav4o4nni5eo030tppr8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.selsela.cosmatics"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

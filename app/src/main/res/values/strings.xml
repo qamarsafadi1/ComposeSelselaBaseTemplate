@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">Compose Template</string>
+    <string name="cosmatic">Compose Template</string>
+    <string name="valid_required">هذا الحقل مطلوب</string>
+    <string name="valid_required2">الرجاء ادخال </string>
+    <string name="warning_email_pattern">الرجاء ادخال البريد الاكتروني</string>
+    <string name="warning_password_length">كلمةالمرور يجب ان تكون اكثر من 6 احرف<br> </br></string>
+    <string name="warning_password_not_match">كلمة المرور غير متطابقة <br> </br></string>
+    <string name="warning_phone_pattern">رقم الهاتف المدخل غير صحيح</string>
+    <string name="warning_phone_length_pattern">رقم الهاتف يجب ان يحتوي على 9 ارقام فقط</string>
+    <string name="_msg_failed">فشلت العملية الرجاء اعادة المحاولة</string>
+    <string name="not_start_with_zero">لا يمكن للرقم ان يبدأ بصفر</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="mobile">رقم الجوال</string>
+    <string name="password">كلمة المرور</string>
+    <string name="verify_code">تفعيل الحساب</string>
+    <string name="confirm">تأكيد</string>
+    <string name="resend">اعادة ارسال</string>
+    <string name="your_code_is">"رمز التفعيل الخاص بك هو : "</string>
+    <string name="categories">الأقسام</string>
+    <string name="high_price">السعر: الأعلى فالأقل</string>
+    <string name="low_prcie">السعر: الأقل فالأعلى</string>
+    <string name="empty_lbl">" "</string>
+    <string name="email">البريد الالكتروني</string>
+    <string name="about_app">عن المتجر</string>
+    <string name="share_using">مشاركة باستخدام</string>
+    <string name="full_name">الاسم كاملاً</string>
+    <string name="app_disabled">التطبيق معطل</string>
+    <string name="app_disabled_lbl">عذرًا لا يمكنك استخدام التطبيق نظرًا لتعطيله</string>
+    <string name="app_update">تحديث التطبيق</string>
+    <string name="app_update_lbl">" يتوفر إصدار أحدث "</string>
+    <string name="update">تحديث</string>
+    <string name="no_products">عذرًا لا يوجد منتجات</string>
+    <string name="no_notifications">لا يوجد اشعارات حاليًا</string>
+    <string name="login_lbl">مرحبا بك من جديد في تطبيق كوزماتيكس، يمكنك تسجيل الدخول على حسابك للتمتع بتجربة تسوق مميزة</string>
+    <string name="send">إرسال</string>
+
+
+    <string name="view_order">تصفح المنتجات</string>
+    <string name="default_notification_channel_id">CH2</string>
+
+    <string name="codeVerfiay">كود  التفعيل</string>
+    <string name="pleaseSendCode">الرجاء ادخال كود التحقق المرسل الي رقم هاتفك</string>
+    <string name="pleaseSendCodeEmail">الرجاء ادخال كود التحقق المرسل الي بريدك الاكتروني</string>
+    <string name="addToCart">إضافة للسلة</string>
+    <string name="no_notifications_lbl">لا توجد اشعارات حالياً تاكد من تفعيل الانترنت</string>
+    <string name="empty_fav">لا توجد منتجات مضافة للمفضلة</string>
+    <string name="fav_emtpy">المفضلة فارغة</string>
+    <string name="register">حساب جديد</string>
+    <string name="forget_password">نسيت كلمة المرور؟</string>
+    <string name="new_user">مستخدم جديد؟</string>
+    <string name="regiser_new_account">تسجيل حساب جديد</string>
+    <string name="reset_password">استعادة كلمة المرور</string>
+    <string name="reset_password_lbl">يرجى إدخال رقم الجوال المستخدم في الحساب لاسترجاع كلمة المرور عليه</string>
+    <string name="reset_password_lbl_2">يرجى إدخال رمز الاستعادة المرسل على رقم الجوال المستخدم في الحساب وادخل كلمة مرور جديدة</string>
+    <string name="reset_code">رمز الاستعادة</string>
+    <string name="new_password">كلمة مرور جديدة</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="current_user">مستخدم حالي؟</string>
+    <string name="weclome_back">أهلا بك من جديد</string>
+    <string name="new_register">تسجيل جديد</string>
+    <string name="register_lbl">أهلا بك في تطبيق متجر الكوزماتيكس، يمكنك تسجيل حساب جديد للتمتع بتجربة تسوق مميزة</string>
+    <string name="please_fill_form">رجاء قم بإدخال كافة التفاصيل للمتابعة</string>
+    <string name="all_products">جمـيـع المنتجات</string>
+    <string name="about_app_lbl">أهلا بك في تطبيق كوزماتيكس، متعة التسوق، أحدث الماركات</string>
+</resources>
