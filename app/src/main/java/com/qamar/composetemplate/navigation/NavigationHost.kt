@@ -10,13 +10,13 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.material.BottomSheetNavigator
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -34,24 +34,17 @@ fun NavigationHost(
     navController: NavHostController = rememberNavController(bottomSheetNavigator),
     @SuppressLint("RestrictedApi") startDestination: String = remember {
         if (activity.hasIntentWithData()) {
-            AppDestinations.Categories.name
+            HomeHostDestination.Categories.route
         } else {
             if (navController.currentBackStack.value.isEmpty())
-                AppDestinations.Splash.name
-            else AppDestinations.Categories.name
+                SplashHostDestination.Splash.route
+            else HomeHostDestination.Categories.route
+
         }
     }
 ) {
     val scaffoldState = rememberScaffoldState()
-    var currentDestinations by remember {
-        mutableStateOf(AppDestinations.Splash)
-    }
-    navController.addOnDestinationChangedListener { controller, destination, arguments ->
-        currentDestinations = AppDestinations.valueOf(
-            destination.route?.substringBefore("/") ?: AppDestinations.Splash.name
-        )
-    }
-
+    val currentDetestation = navController.currentRoute()
     ModalBottomSheetLayout(
         bottomSheetNavigator,
         sheetShape = RoundedCornerShape(22.dp)
@@ -61,7 +54,7 @@ fun NavigationHost(
                 scaffoldState = scaffoldState,
                 backgroundColor = Color.Transparent,
                 bottomBar = {
-                  // Bottom navigation
+                    // Bottom navigation
                 }
             ) { _ ->
                 NavHostGraph(navController, startDestination, modifier)
@@ -70,3 +63,14 @@ fun NavigationHost(
     }
 }
 
+@Composable
+fun NavHostController.currentRoute(): NavDestination? {
+    val navBackStackEntry by currentBackStackEntryAsState()
+    return navBackStackEntry?.destination
+}
+
+@Composable
+fun NavHostController.bottomNavVisible(): Boolean {
+    val navBackStackEntry by currentBackStackEntryAsState()
+    return navBackStackEntry?.destination?.parent?.route == NavigationGraphs.MainNavGraph
+}

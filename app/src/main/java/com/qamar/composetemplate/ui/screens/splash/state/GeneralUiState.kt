@@ -8,7 +8,6 @@ import de.palm.composestateevents.consumed
 
 sealed interface GeneralUiState {
     data object Loading : GeneralUiState
-    data object IDLE : GeneralUiState
 
     data class Success(
         val configurations: Configurations? = Configurations.Config,

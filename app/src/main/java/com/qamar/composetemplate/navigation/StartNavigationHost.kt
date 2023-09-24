@@ -9,12 +9,16 @@ import com.qamar.composetemplate.data.remote.config.model.config.Configurations
 import com.qamar.composetemplate.ui.screens.splash.SplashScreen
 import com.qamar.composetemplate.util.disableApp
 import com.qamar.composetemplate.util.forceUpdateApp
+import com.selsela.cpapp.R
 
-val SPLASH_SCREEN = AppDestinations.Splash.name
+sealed class SplashHostDestination(val route: String, val label: Int) {
+    data object Splash : SplashHostDestination("SPLASH_SCREEN", R.string.categories)
+
+}
 
 fun NavGraphBuilder.startNavigationHost(navController: NavHostController) {
     composable(
-        route = SPLASH_SCREEN,
+        route = SplashHostDestination.Splash.route,
     ) {
         val context = LocalContext.current
         SplashScreen {
@@ -39,7 +43,7 @@ fun NavGraphBuilder.startNavigationHost(navController: NavHostController) {
  */
 
 fun NavHostController.navigateToAuth() {
-    navigate(AppDestinations.Login.name) {
+    navigate(AuthHostDestination.Login.createRoute(true)) {
         launchSingleTop = true
         popUpTo(graph.id) {
             inclusive = true
@@ -48,7 +52,7 @@ fun NavHostController.navigateToAuth() {
 }
 
 fun NavHostController.navigateToCategories() {
-    navigate(AppDestinations.Categories.name) {
+    navigate(HomeHostDestination.Categories.route) {
         launchSingleTop = true
         popUpTo(graph.id) {
             inclusive = true

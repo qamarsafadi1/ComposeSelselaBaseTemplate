@@ -34,6 +34,7 @@ import de.palm.composestateevents.EventEffect
 
 @Composable
 fun LoginScreen(
+    goToRoot: Boolean? = true,
     viewModel: AuthViewModel = hiltViewModel(),
     onEvent: (LoginEvent) -> Unit
 ) {
@@ -61,7 +62,9 @@ fun LoginScreen(
                 event = state.onLogin,
                 onConsumed = viewModel::onSuccess
             ) {
-                onEvent(LoginEvent.GoToCategories)
+                if (goToRoot == true)
+                    onEvent(LoginEvent.GoToCategories)
+                else onEvent(LoginEvent.LoggedIn)
             }
 
             EventEffect(

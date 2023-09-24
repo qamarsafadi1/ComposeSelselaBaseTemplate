@@ -200,7 +200,6 @@ data class AuthForm @Inject constructor(
         }
     }
 
-
     fun onAvatarChange(value: File): AuthForm {
         return this.copy(
             avatar = mutableStateOf(value)

@@ -46,7 +46,6 @@ fun CategoriesScreen(
             viewModel.getCategories()
     }
 
-
     /**
      * Handle Ui state from flow
      */

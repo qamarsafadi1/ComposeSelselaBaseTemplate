@@ -14,8 +14,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.qamar.composetemplate.navigation.HomeARGS.ID_ARGS
-import com.qamar.composetemplate.navigation.HomeARGS.TITLE_ARGS
+import androidx.navigation.navigation
+import com.qamar.composetemplate.navigation.HomeHostDestination.HomeArgs.ID_ARGS
+import com.qamar.composetemplate.navigation.HomeHostDestination.HomeArgs.TITLE_ARGS
 import com.qamar.composetemplate.ui.core.views.TopAppBarContainer
 import com.qamar.composetemplate.ui.screens.category.CategoriesScreen
 import com.qamar.composetemplate.ui.screens.category.CategoryViewModel
@@ -24,15 +25,26 @@ import com.qamar.composetemplate.ui.screens.category.event.CategoriesEvents
 import com.qamar.composetemplate.ui.theme.BgColor
 import com.selsela.cpapp.R
 
-object HomeARGS {
-    const val ID_ARGS = "id"
-    const val TITLE_ARGS = "title"
+
+sealed class HomeHostDestination(val route: String, val label: Int) {
+    object HomeArgs {
+        const val ID_ARGS = "id"
+        const val TITLE_ARGS = "title"
+    }
+
+    data object Categories : HomeHostDestination("CATEGORY_SCREEN", R.string.categories)
+
+    data object CategoryProducts :
+        HomeHostDestination(
+            "CATEGORY_PRODUCTS_SCREEN/{$TITLE_ARGS}/{$ID_ARGS}",
+            R.string.empty_lbl
+        ) {
+        fun createRoute(title: String, id: Int): String {
+            return "CATEGORY_PRODUCTS_SCREEN/$title/$id"
+        }
+    }
 
 }
-
-val CATEGORY_SCREEN = AppDestinations.Categories.name
-val CATEGORY_PRODUCTS_SCREEN = AppDestinations.CategoryProducts.name
-val CATEGORY_PRODUCTS_ROUTE = "${CATEGORY_PRODUCTS_SCREEN}/{$TITLE_ARGS}/{${ID_ARGS}}"
 
 @androidx.annotation.OptIn(ExperimentalGetImage::class)
 fun NavGraphBuilder.homeNavigationHost(navController: NavHostController) {
@@ -41,63 +53,68 @@ fun NavGraphBuilder.homeNavigationHost(navController: NavHostController) {
      * Screens
      */
 
-    composable(CATEGORY_SCREEN) {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .background(BgColor)
-        ) {
-            TopAppBarContainer(title = AppDestinations.Categories.title,
-                navigationIcon = null,
-                onNavigationIconClick = {},
-                actions = {
-                    // Menu items
-                }
+    navigation(
+        route = NavigationGraphs.MainNavGraph,
+        startDestination = HomeHostDestination.Categories.route
+    ) {
+        composable(HomeHostDestination.Categories.route) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .background(BgColor)
             ) {
-                CategoriesScreen {
-                    when (it) {
-                        is CategoriesEvents.OnCategoryClick -> {
-                            navController.navigateToCategoryProducts(it.title, it.categoryId)
+                TopAppBarContainer(title = HomeHostDestination.Categories.label,
+                    navigationIcon = null,
+                    onNavigationIconClick = {},
+                    actions = {
+                        // Menu items
+                    }
+                ) {
+                    CategoriesScreen {
+                        when (it) {
+                            is CategoriesEvents.OnCategoryClick -> {
+                                navController.navigateToCategoryProducts(it.title, it.categoryId)
+                            }
                         }
                     }
                 }
             }
         }
-    }
 
-    composable(
-        CATEGORY_PRODUCTS_ROUTE,
-        arguments = listOf(
-            navArgument(TITLE_ARGS) {
-                type = NavType.StringType
-            },
-            navArgument(ID_ARGS) {
-                type = NavType.IntType
-            },
-        )
-    ) {
-        val title = it.arguments?.getString(TITLE_ARGS)
-        val id = it.arguments?.getInt(ID_ARGS)
-        val viewModel = hiltViewModel<CategoryViewModel>()
-        LaunchedEffect(Unit) {
-            viewModel.categoryTitle.value = title ?: ""
-            viewModel.categoryId.intValue = id ?: 0
-            viewModel.mainCategoryId.intValue = id ?: 0
-        }
-        LaunchedEffect(viewModel.isLoaded.value) {
-            if (viewModel.isLoaded.value.not())
-                viewModel.getCategoryProducts()
-        }
-        TopAppBarContainer(title = title ?: "",
-            navigationIcon = R.drawable.back,
-            onNavigationIconClick = navController::navigateUp,
-            actions = {
-            }
+        composable(
+            HomeHostDestination.CategoryProducts.route,
+            arguments = listOf(
+                navArgument(TITLE_ARGS) {
+                    type = NavType.StringType
+                },
+                navArgument(ID_ARGS) {
+                    type = NavType.IntType
+                },
+            )
         ) {
-            Column(Modifier.padding(top = 88.dp)) {
-                ProductsScreen(
-                    viewModel,
-                )
+            val title = it.arguments?.getString(TITLE_ARGS)
+            val id = it.arguments?.getInt(ID_ARGS)
+            val viewModel = hiltViewModel<CategoryViewModel>()
+            LaunchedEffect(Unit) {
+                viewModel.categoryTitle.value = title ?: ""
+                viewModel.categoryId.intValue = id ?: 0
+                viewModel.mainCategoryId.intValue = id ?: 0
+            }
+            LaunchedEffect(viewModel.isLoaded.value) {
+                if (viewModel.isLoaded.value.not())
+                    viewModel.getCategoryProducts()
+            }
+            TopAppBarContainer(title = title ?: "",
+                navigationIcon = R.drawable.back,
+                onNavigationIconClick = navController::navigateUp,
+                actions = {
+                }
+            ) {
+                Column(Modifier.padding(top = 88.dp)) {
+                    ProductsScreen(
+                        viewModel,
+                    )
+                }
             }
         }
     }
@@ -109,6 +126,6 @@ fun NavGraphBuilder.homeNavigationHost(navController: NavHostController) {
  */
 
 fun NavHostController.navigateToCategoryProducts(title: String, id: Int) {
-    this.navigate("$CATEGORY_PRODUCTS_SCREEN/$title/$id")
+    this.navigate(HomeHostDestination.CategoryProducts.createRoute(title, id))
 }
 
