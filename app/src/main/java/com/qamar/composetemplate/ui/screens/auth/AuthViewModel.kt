@@ -1,19 +1,25 @@
 package com.qamar.composetemplate.ui.screens.auth
 
 import android.app.Application
+import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.maps.model.LatLng
 import com.qamar.composetemplate.data.remote.auth.model.user.User
 import com.qamar.composetemplate.data.remote.auth.repository.AuthRepository
 import com.qamar.composetemplate.ui.screens.auth.events.AuthForm
 import com.qamar.composetemplate.ui.screens.auth.events.AuthFormEvents
 import com.qamar.composetemplate.ui.screens.auth.state.AuthUiState
 import com.qamar.composetemplate.util.Constants.NOT_VERIFIED
+import com.qamar.composetemplate.util.GeocodingUtils
+import com.qamar.composetemplate.util.getActivity
+import com.qamar.composetemplate.util.log
 import com.qamar.composetemplate.util.networking.model.ErrorsData
 import com.qamar.composetemplate.util.networking.model.Status
+import com.qamar.composetemplate.util.showErrorTop
 import dagger.hilt.android.lifecycle.HiltViewModel
 import de.palm.composestateevents.triggered
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -294,6 +300,106 @@ class AuthViewModel @Inject constructor(
                 }
         }
     }
+
+    fun updateSelectedAddress(latLng: LatLng) {
+        val currentLocation = latLng
+        viewModelScope.launch {
+            val geocodingUtils = GeocodingUtils(currentLocation)
+            geocodingUtils.reverseGeocode()
+            val countryName = geocodingUtils.getCountryName()
+            if (countryName != null) {
+                //  ifFromNationalQuery.value = false
+                //  country.value = countryName
+            } else {
+                // country.value = ""
+                println("Failed to get country name.")
+            }
+
+            val cityName = geocodingUtils.getCityName()
+            if (cityName != null) {
+                //   city.value = cityName
+                //     selectedCityId.value = getCities().find { city.value.contains(it.name) }?.id ?: 0
+                //   selectedCityIndex.intValue = getCities().indexOfLast { city.value.contains(it.name) }
+                //   onLocationInfoFormEvent(LocationInfoFormEvents.OnCitySelected(selectedCityId.value))
+            } else {
+                println("Failed to get city name.")
+            }
+
+            val neighborhood = geocodingUtils.getNeighborhood()
+            if (neighborhood != null) {
+                //    area.value = neighborhood
+                //    onLocationInfoFormEvent(LocationInfoFormEvents.OnAreaEntered(area.value))
+            } else {
+                println("Failed to get neighborhood.")
+            }
+
+            val street = geocodingUtils.getStreet()
+            if (street != null) {
+                //   onLocationInfoFormEvent(LocationInfoFormEvents.OnStreetEntered(street))
+            } else {
+                println("Failed to get street.")
+            }
+        }
+    }
+
+    fun queryForNationalNumber(nationalNumber: String, context: Context) {
+        viewModelScope.launch {
+            val currentLocation = LatLng(0.0, 0.0)
+            val geocodingUtils = GeocodingUtils(currentLocation)
+            geocodingUtils.nationalNumberQuery(nationalNumber)
+            if (geocodingUtils.response.results.isEmpty()) {
+                context.getActivity()?.showErrorTop(
+                    "no address found"
+                )
+            } else {
+                val countryName = geocodingUtils.getCountryName()
+                if (countryName != null) {
+                    //   country.value = countryName
+                } else {
+                    //    country.value = ""
+                    println("Failed to get country name.")
+                }
+                val latLng = geocodingUtils.getLatLng()
+                if (latLng != null) {
+                    //   ifFromNationalQuery.value = true
+                    //  currentLocation.value = latLng
+                    //   checkIfLocationWithinBoundaries()
+                    latLng.log("latLnglatLng")
+                } else {
+                    //currentLocation.value = currentLocation.value
+                    println("Failed to get latLng.")
+                }
+
+                val cityName = geocodingUtils.getCityName()
+                if (cityName != null) {
+                    //   city.value = cityName
+                    //   selectedCityId.value =
+                    //     getCities().find { city.value.contains(it.name) }?.id ?: 0
+                    //  selectedCityIndex.intValue =
+                    //       getCities().indexOfLast { city.value.contains(it.name) }
+                    //  onLocationInfoFormEvent(LocationInfoFormEvents.OnCitySelected(selectedCityId.value))
+                } else {
+                    println("Failed to get city name.")
+                }
+
+                val neighborhood = geocodingUtils.getNeighborhood()
+                if (neighborhood != null) {
+                    //   area.value = neighborhood
+                    //    onLocationInfoFormEvent(LocationInfoFormEvents.OnAreaEntered(area.value))
+                } else {
+                    println("Failed to get neighborhood.")
+                }
+
+                val street = geocodingUtils.getStreet()
+                if (street != null) {
+                    //  onLocationInfoFormEvent(LocationInfoFormEvents.OnStreetEntered(street))
+                } else {
+                    println("Failed to get street.")
+                }
+            }
+        }
+    }
+
 
     /**
      * Reset handlers when single event
